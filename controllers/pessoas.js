@@ -11,9 +11,14 @@ async function deleteOne(connection, req, res){
 async function createForm(req, res){
     return res.render("create");
 }
+async function create(connection, req, res){
+    await pessoasModel.create(connection, req.body);
+    return res.redirect("/pessoas");
+}
 
 module.exports = {
     index,
     deleteOne,
-    createForm
+    createForm,
+    create
 }

@@ -22,7 +22,20 @@ const deleteOne = (connection, id) => {
     });
 }
 
+const create = (connection, { nome, nascimento, cargo }) => {
+    return new Promise((resolve, reject)=>{
+        connection.query(`INSERT INTO pessoas(nome, nascimento, cargo) values('${nome}','${nascimento}','${cargo}')`,(err)=>{
+            if(err){
+                reject(err);
+            }else{
+                resolve();
+            }
+        });
+    });
+}
+
 module.exports = {
     findAll,
-    deleteOne
+    deleteOne,
+    create
 }
