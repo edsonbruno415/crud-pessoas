@@ -1,13 +1,10 @@
 const express = require("express");
+const pessoasController = require("../controllers/pessoas");
 
 const pessoasRouter = ({ connection }) => {
     const router = express.Router();
 
-    router.get("/", (req, res) => {
-        connection.query("SELECT * FROM pessoas",(err, results)=>{
-            return res.send(results);
-        });
-    });
+    router.get("/", pessoasController.index.bind(null, connection));
 
     return router;
 };
