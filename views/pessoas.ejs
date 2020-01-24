@@ -1,3 +1,37 @@
 <%- include("./partials/header") %>
-<h1>ALOO</h1>
+<main role="main" class="container">
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% pessoas.map(pessoa => { %>
+            <tr>
+                <td>
+                    <%= pessoa.nome %>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-secondary" href="#">Editar</a>
+                        <a class="btn btn-secondary" href="/pessoas/delete/<%= pessoa.id %>" onclick="verificar(this)">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+            <% })%>
+        </tbody>
+    </table>
+</main><!-- /.container -->
+<script>
+    function verificar(elem){
+        let res = confirm("Deseja excluir esse registro?");
+        if(res == true){
+            
+        }else{
+            return elem.href = "/pessoas";
+        }
+    }
+</script>
 <%- include("./partials/footer") %>

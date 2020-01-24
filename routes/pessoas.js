@@ -5,6 +5,7 @@ const pessoasRouter = ({ connection }) => {
     const router = express.Router();
 
     router.get("/", pessoasController.index.bind(null, connection));
+    router.get("/delete/:id",pessoasController.deleteOne.bind(null, connection));
 
     return router;
 };
