@@ -1,5 +1,6 @@
 <%- include("./partials/header") %>
 <main role="main" class="container">
+    <a class="btn btn-secondary btn-lg btn-block" href="/pessoas/create">Nova pessoa</a>
     <table class="table table-hover table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -28,7 +29,7 @@
     function verificar(elem){
         let res = confirm("Deseja excluir esse registro?");
         if(res == true){
-            
+
         }else{
             return elem.href = "/pessoas";
         }
