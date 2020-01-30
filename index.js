@@ -1,20 +1,35 @@
 const express = require("express");
 const path = require("path");
-const mysql = require("mysql");
+const knex = require("knex");
+//const mysql = require("mysql");
 const pessoas = require("./routes/pessoas");
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 3000;
 const app = express();
+/*
 const connection = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
     password: "",
     database: "cadastro"
 });
+*/
+
+const db = knex({
+    client: "mysql",
+    version: 6.1,
+    connection: {
+        host: "127.0.0.1",
+        user: "root",
+        password: "",
+        database: "cadastro"
+    }
+});
 
 const dependencies = {
-    connection
+    db
 }
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -24,8 +39,5 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => res.render("home"));
 app.use("/pessoas", pessoas(dependencies));
 
-connection.connect(() => {
-    console.log("Conectado ao banco de dados!");
-    app.listen(port, () => console.log("CRUD listening on port " + port));
-});
+app.listen(port, () => console.log("CRUD listening on port " + port));
 
