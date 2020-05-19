@@ -17,20 +17,49 @@
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-secondary" href="/pessoas/edit/<%= pessoa.id %>">Editar</a>
-                        <a class="btn btn-secondary" href="/pessoas/delete/<%= pessoa.id %>" onclick="verificar(this)">Excluir</a>
+                        <a class="btn btn-secondary" href="/pessoas/delete/<%= pessoa.id %>"
+                            onclick="verificar(this)">Excluir</a>
                     </div>
                 </td>
             </tr>
             <% })%>
         </tbody>
     </table>
+    <ul class="pagination justify-content-center d-flex flex-wrap">
+        <li class="page-item p-2">Itens por Pagina</li>
+
+        <% for(let itensPorPagina = 10; itensPorPagina <= 50; itensPorPagina+=10){ %>
+        <li class="page-item"><a class="page-link" href="/pessoas/?sizePage=<%= itensPorPagina %>&page=0"><%= itensPorPagina %></a></li>
+        <% } %>
+    </ul>
+    <nav>
+        <ul class="pagination justify-content-center d-flex flex-wrap">
+            <% if(pagination.page > 0){ %>
+            <li class="page-item"><a class="page-link"
+                    href="/pessoas/?sizePage=<%= pagination.sizePage %>&page=<%= pagination.page-1 %>">Anterior</a></li>
+            <% } %>
+            <% for(let i = 0; i < pagination.totalPages; i++){ %>
+            <li class="page-item <% if(pagination.page == i){ %> active <% } %>">
+                <a class="page-link" href="/pessoas/?sizePage=<%= pagination.sizePage %>&page=<%= i %>">
+                    <%= (i+1) %>
+                </a>
+            </li>
+            <% } %>
+            <% if(pagination.page < (pagination.totalPages-1)){ %>
+            <li class="page-item"><a class="page-link"
+                    href="/pessoas/?sizePage=<%= pagination.sizePage %>&page=<%= parseInt(pagination.page) + 1 %>">Proximo</a>
+            </li>
+            <% } %>
+        </ul>
+    </nav>
+    <%= JSON.stringify(pagination)%>
 </main><!-- /.container -->
 <script>
-    function verificar(elem){
+    function verificar(elem) {
         let res = confirm("Deseja excluir esse registro?");
-        if(res == true){
+        if (res == true) {
 
-        }else{
+        } else {
             return elem.href = "/pessoas";
         }
     }
